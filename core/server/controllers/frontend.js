@@ -62,6 +62,14 @@ function getArtists(options) {
   return api.artists.browse(options);
 }
 
+function getArtist(slug, fn) {
+  return api.users.read({slug : slug}).then(function(users){
+    fn(null,users.users[0]);
+  }).catch(function(err){
+    fn(err);
+  });
+}
+
 function formatPageResponse(posts, page) {
     // Delete email from author for frontend output
     // TODO: do this on API level if no context is available
@@ -258,6 +266,58 @@ frontendControllers = {
           res.render(view, page);
         });
       });
+    },
+    artist: function(req,res,next){
+      // Parse the page number
+      var pageParam = req.params.page !== undefined ? parseInt(req.params.page, 10) : 1,
+      options = {
+        page: pageParam,
+        tag: req.params.slug
+      };
+
+      // Get url for tag page
+      function tagUrl(tag, page) {
+        var url = config.paths.subdir + '/artist/' + tag + '/';
+
+        if (page && page > 1) {
+          url += 'page/' + page + '/';
+        }
+
+        return url;
+      }
+
+      // No negative pages, or page 1
+      if (isNaN(pageParam) || pageParam < 1 || (req.params.page !== undefined && pageParam === 1)) {
+        return res.redirect(tagUrl(options.tag));
+      }
+
+      return getPostPage(options).then(function (page) {
+        // If page is greater than number of pages we have, redirect to last page
+        if (pageParam > page.meta.pagination.pages) {
+          return res.redirect(tagUrl(options.tag, page.meta.pagination.pages));
+        }
+
+        setReqCtx(req, page.posts);
+        if (page.meta.filters.tags) {
+          setReqCtx(req, page.meta.filters.tags[0]);
+        }
+
+        // Render the page of posts
+        filters.doFilter('prePostsRender', page.posts).then(function (posts) {
+          getActiveThemePaths().then(function (paths) {
+            var view = paths.hasOwnProperty('author.hbs') ? 'author' : 'index';
+            // Format data for template
+            getArtist(options.tag,function(err,artist){
+              var result = _.extend(formatPageResponse(posts, page), {
+                author: artist
+              });
+
+              setResponseContext(req, res);
+              res.render(view, result);
+            });
+          });
+        });
+      }).catch(handleError(next));
     },
     author: function (req, res, next) {
         // Parse the page number

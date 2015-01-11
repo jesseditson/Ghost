@@ -46,8 +46,10 @@ frontendRoutes = function () {
     router.get('/artists', frontend.artists);
     router.get('/artist/:slug/rss/', frontend.rss);
     router.get('/artist/:slug/rss/:page/', frontend.rss);
-    router.get('/artist/:slug/page/:page/', frontend.author);
-    router.get('/artist/:slug/', frontend.author);
+    router.get('/artist/:slug/page/:page/', frontend.artist);
+    router.get('/artist/:slug/', frontend.artist);
+    router.get('/author/:slug/page/:page/', frontend.author);
+    router.get('/author/:slug/', frontend.author);
 
     // Default
     router.get('/page/:page/', frontend.homepage);

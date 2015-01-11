@@ -150,6 +150,7 @@ users = {
 
             // Check permissions
             return canThis(options.context).edit.user(options.id).then(function () {
+
                 if (data.users[0].roles && data.users[0].roles[0]) {
                     var role = data.users[0].roles[0],
                         roleId = parseInt(role.id || role, 10);

@@ -39,7 +39,8 @@ artists = {
      */
     browse: function browse(options) {
         options = options || {};
-        options.is_artist = true;
+        options.where = options.where || {};
+        options.where.is_artist = true;
         if (options.include) {
           options.include = prepareInclude(options.include);
         }
