@@ -156,7 +156,7 @@ User = ghostBookshelf.Model.extend({
                 findAll: ['withRelated'],
                 setup: ['id'],
                 edit: ['withRelated', 'id'],
-                findPage: ['page', 'limit', 'status']
+                findPage: ['page', 'limit', 'status','where']
             };
 
         if (validOptions[methodName]) {
