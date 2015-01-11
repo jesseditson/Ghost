@@ -58,6 +58,10 @@ function getPostPage(options) {
     });
 }
 
+function getArtists(options) {
+  return api.artists.browse(options);
+}
+
 function formatPageResponse(posts, page) {
     // Delete email from author for frontend output
     // TODO: do this on API level if no context is available
@@ -106,8 +110,8 @@ function setResponseContext(req, res, data) {
         contexts.push('rss');
     } else if (/^\/tag\//.test(req.route.path)) {
         contexts.push('tag');
-    } else if (/^\/author\//.test(req.route.path)) {
-        contexts.push('author');
+    } else if (/^\/artist\//.test(req.route.path)) {
+        contexts.push('artist');
     } else if (data && data.post && data.post.page) {
         contexts.push('page');
     } else {
@@ -138,7 +142,6 @@ function getActiveThemePaths() {
     }).then(function (response) {
         var activeTheme = response.settings[0],
             paths = config.paths.availableThemes[activeTheme.value];
-
         return paths;
     });
 }
@@ -236,6 +239,26 @@ frontendControllers = {
             });
         }).catch(handleError(next));
     },
+    artists : function(req, res, next){
+      // Parse the page number
+      var pageParam = req.params.page !== undefined ? parseInt(req.params.page, 10) : 1,
+      options = {
+        page: pageParam
+      };
+
+      // No negative pages, or page 1
+      if (isNaN(pageParam) || pageParam < 1 || (pageParam === 1 && req.route.path === '/page/:page/')) {
+        return res.redirect(config.paths.subdir + '/');
+      }
+
+      return getArtists(options).then(function(page){
+        getActiveThemePaths().then(function (paths) {
+          var view = paths.hasOwnProperty('artists.hbs') ? 'artists' : 'index';
+          setResponseContext(req, res);
+          res.render(view, page);
+        });
+      });
+    },
     author: function (req, res, next) {
         // Parse the page number
         var pageParam = req.params.page !== undefined ? parseInt(req.params.page, 10) : 1,
@@ -246,7 +269,7 @@ frontendControllers = {
 
         // Get url for tag page
         function authorUrl(author, page) {
-            var url = config.paths.subdir + '/author/' + author + '/';
+            var url = config.paths.subdir + '/artist/' + author + '/';
 
             if (page && page > 1) {
                 url += 'page/' + page + '/';
@@ -329,7 +352,7 @@ frontendControllers = {
             // Sanitize params we're going to use to lookup the post.
             postLookup = _.pick(permalink.params, 'slug', 'id');
             // Add author, tag and fields
-            postLookup.include = 'author,tags,fields';
+            postLookup.include = 'artist,tags,fields';
 
             // Query database to find post
             return api.posts.read(postLookup);
@@ -439,7 +462,7 @@ frontendControllers = {
         }
 
         function isAuthor() {
-            return req.route.path.indexOf('/author/') !== -1;
+            return req.route.path.indexOf('/artist/') !== -1;
         }
 
         // Initialize RSS
@@ -450,7 +473,7 @@ frontendControllers = {
         if (isTag()) {
             baseUrl += '/tag/' + slugParam + '/rss/';
         } else if (isAuthor()) {
-            baseUrl += '/author/' + slugParam + '/rss/';
+            baseUrl += '/artist/' + slugParam + '/rss/';
         } else {
             baseUrl += '/rss/';
         }
@@ -496,7 +519,7 @@ frontendControllers = {
                 if (isAuthor()) {
                     if (page.meta.filters.author) {
                         title = page.meta.filters.author.name + ' - ' + title;
-                        feedUrl = siteUrl + 'author/' + page.meta.filters.author.slug + '/rss/';
+                        feedUrl = siteUrl + 'artist/' + page.meta.filters.author.slug + '/rss/';
                     }
                 }
 

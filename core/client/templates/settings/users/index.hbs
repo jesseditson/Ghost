@@ -1,9 +1,9 @@
 {{#view "settings/users/users-list-view"}}
     <header class="settings-view-header user-list-header">
         {{#link-to "settings" class="btn btn-default btn-back"}}Back{{/link-to}}
-        <h2 class="page-title">Users</h2>
+        <h2 class="page-title">Artists</h2>
         <section class="page-actions">
-            <button class="btn btn-green" {{action "openModal" "invite-new-user"}} >New&nbsp;User</button>
+            <button class="btn btn-green" {{action "openModal" "invite-new-user"}} >New&nbsp;Artist</button>
         </section>
     </header>
 
@@ -40,7 +40,7 @@
 
     <section class="user-list active-users">
 
-        <h4 class="user-list-title">Active users</h4>
+        <h4 class="user-list-title">Current artists</h4>
 
         {{#each user in activeUsers itemController="settings/users/user"}}
             {{#link-to 'settings.users.user' user class="user-list-item" }}

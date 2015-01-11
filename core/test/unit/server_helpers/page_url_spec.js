@@ -36,9 +36,9 @@ describe('{{page_url}} helper', function () {
         var authorContext = {
             authorSlug: 'pumpkin'
         };
-        helpers.page_url.call(authorContext, 1).should.equal('/author/pumpkin/');
-        helpers.page_url.call(authorContext, 2).should.equal('/author/pumpkin/page/2/');
-        helpers.page_url.call(authorContext, 50).should.equal('/author/pumpkin/page/50/');
+        helpers.page_url.call(authorContext, 1).should.equal('/artist/pumpkin/');
+        helpers.page_url.call(authorContext, 2).should.equal('/artist/pumpkin/page/2/');
+        helpers.page_url.call(authorContext, 50).should.equal('/artist/pumpkin/page/50/');
     });
 
     describe('with /blog subdirectory', function () {
@@ -60,9 +60,9 @@ describe('{{page_url}} helper', function () {
             var authorContext = {
                 authorSlug: 'pumpkin'
             };
-            helpers.page_url.call(authorContext, 1).should.equal('/blog/author/pumpkin/');
-            helpers.page_url.call(authorContext, 2).should.equal('/blog/author/pumpkin/page/2/');
-            helpers.page_url.call(authorContext, 50).should.equal('/blog/author/pumpkin/page/50/');
+            helpers.page_url.call(authorContext, 1).should.equal('/blog/artist/pumpkin/');
+            helpers.page_url.call(authorContext, 2).should.equal('/blog/artist/pumpkin/page/2/');
+            helpers.page_url.call(authorContext, 50).should.equal('/blog/artist/pumpkin/page/50/');
         });
 
         it('can return a valid url for tag pages with subdirectory', function () {
@@ -95,9 +95,9 @@ describe('{{pageUrl}} helper [DEPRECATED]', function () {
         var authorContext = {
             authorSlug: 'pumpkin'
         };
-        helpers.pageUrl.call(authorContext, 1).should.equal('/author/pumpkin/');
-        helpers.pageUrl.call(authorContext, 2).should.equal('/author/pumpkin/page/2/');
-        helpers.pageUrl.call(authorContext, 50).should.equal('/author/pumpkin/page/50/');
+        helpers.pageUrl.call(authorContext, 1).should.equal('/artist/pumpkin/');
+        helpers.pageUrl.call(authorContext, 2).should.equal('/artist/pumpkin/page/2/');
+        helpers.pageUrl.call(authorContext, 50).should.equal('/artist/pumpkin/page/50/');
     });
 
     it('can return a valid url for tag pages', function () {

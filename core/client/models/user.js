@@ -8,6 +8,7 @@ var User = DS.Model.extend(NProgressSaveMixin, SelectiveSaveMixin, ValidationEng
     uuid: DS.attr('string'),
     name: DS.attr('string'),
     slug: DS.attr('string'),
+    is_artist: DS.attr('boolean'),
     email: DS.attr('string'),
     image: DS.attr('string'),
     cover: DS.attr('string'),

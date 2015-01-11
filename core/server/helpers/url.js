@@ -21,7 +21,7 @@ url = function (options) {
     }
 
     if (schema.isUser(this)) {
-        return Promise.resolve(config.urlFor('author', {author: this}, absolute));
+        return Promise.resolve(config.urlFor('artist', {author: this}, absolute));
     }
 
     return Promise.resolve(config.urlFor(this, absolute));

@@ -102,7 +102,7 @@ function urlPathForPost(post, permalinks) {
 function urlFor(context, data, absolute) {
     var urlPath = '/',
         secure, imagePathRe,
-        knownObjects = ['post', 'tag', 'author', 'image'], baseUrl,
+        knownObjects = ['post', 'tag', 'artist', 'image'], baseUrl,
 
     // this will become really big
     knownPaths = {
@@ -130,8 +130,8 @@ function urlFor(context, data, absolute) {
         } else if (context === 'tag' && data.tag) {
             urlPath = '/tag/' + data.tag.slug + '/';
             secure = data.tag.secure;
-        } else if (context === 'author' && data.author) {
-            urlPath = '/author/' + data.author.slug + '/';
+        } else if (context === 'artist' && data.author) {
+            urlPath = '/artist/' + data.author.slug + '/';
             secure = data.author.secure;
         } else if (context === 'image' && data.image) {
             urlPath = data.image;

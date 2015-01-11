@@ -98,7 +98,7 @@ ghost_head = function (options) {
             // escaped data
             metaTitle = hbs.handlebars.Utils.escapeExpression(metaTitle);
             metaDescription = hbs.handlebars.Utils.escapeExpression(metaDescription + '...');
-            authorUrl = hbs.handlebars.Utils.escapeExpression(blog.url + '/author/' + self.post.author.slug);
+            authorUrl = hbs.handlebars.Utils.escapeExpression(blog.url + '/artist/' + self.post.author.slug);
 
             schema = {
                 '@context': 'http://schema.org',

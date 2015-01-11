@@ -65,7 +65,7 @@ describe('{{meta_description}} helper', function () {
     });
 
     it('returns correct description for an author page', function (done) {
-        var author = {relativeUrl: '/author/donald', author: {bio: 'I am a Duck.'}};
+        var author = {relativeUrl: '/artist/donald', author: {bio: 'I am a Duck.'}};
         helpers.meta_description.call(author).then(function (rendered) {
             should.exist(rendered);
             String(rendered).should.equal('I am a Duck.');
@@ -75,7 +75,7 @@ describe('{{meta_description}} helper', function () {
     });
 
     it('returns empty description for a paginated author page', function (done) {
-        var author = {relativeUrl: '/author/donald/page/2/', author: {name: 'Donald Duck'}};
+        var author = {relativeUrl: '/artist/donald/page/2/', author: {name: 'Donald Duck'}};
         helpers.meta_description.call(author).then(function (rendered) {
             should.exist(rendered);
             String(rendered).should.equal('');

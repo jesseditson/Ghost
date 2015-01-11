@@ -85,7 +85,7 @@ describe('{{meta_title}} helper', function () {
     });
 
     it('returns correct title for an author page', function (done) {
-        var author = {relativeUrl: '/author/donald', author: {name: 'Donald Duck'}};
+        var author = {relativeUrl: '/artist/donald', author: {name: 'Donald Duck'}};
         helpers.meta_title.call(author).then(function (rendered) {
             should.exist(rendered);
             String(rendered).should.equal('Donald Duck - Ghost');
@@ -95,7 +95,7 @@ describe('{{meta_title}} helper', function () {
     });
 
     it('returns correct title for a paginated author page', function (done) {
-        var author = {relativeUrl: '/author/donald/page/2/', author: {name: 'Donald Duck'}};
+        var author = {relativeUrl: '/artist/donald/page/2/', author: {name: 'Donald Duck'}};
         helpers.meta_title.call(author).then(function (rendered) {
             should.exist(rendered);
             String(rendered).should.equal('Donald Duck - Page 2 - Ghost');

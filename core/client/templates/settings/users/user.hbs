@@ -42,17 +42,20 @@
             <div class="form-group first-form-group">
                 <label for="user-name">Full Name</label>
                 {{input value=user.name id="user-name" class="user-name" placeholder="Full Name" autocorrect="off"}}
-                <p>Use your real name so people can recognise you</p>
             </div>
 
         </fieldset>
+        <br/>
 
         <fieldset class="user-details-bottom">
-
             <div class="form-group">
-                <label for="user-slug">Slug</label>
+              <label for="user-isArtist">Artist</label>
+              {{input type="checkbox" name="isArtist" id="user-isArtist" class="user-isArtist" checked=user.is_artist}}
+            </div>
+            <div class="form-group">
+                <label for="user-slug">Nickname</label>
                 {{gh-input class="user-name" id="user-slug" value=slugValue name="user" focus-out="updateSlug" placeholder="Slug" selectOnClick="true" autocorrect="off"}}
-                <p>{{gh-blog-url}}/author/{{slugValue}}</p>
+                <p>{{gh-blog-url}}/artist/{{slugValue}}</p>
             </div>
 
             <div class="form-group">

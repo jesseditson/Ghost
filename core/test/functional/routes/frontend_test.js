@@ -72,7 +72,7 @@ describe('Frontend Routing', function () {
             });
 
             it('should 404 for unknown author', function (done) {
-                request.get('/author/spectacular/')
+                request.get('/artist/spectacular/')
                     .expect('Cache-Control', testUtils.cacheRules['private'])
                     .expect(404)
                     .expect(/Page Not Found/)
@@ -503,15 +503,15 @@ describe('Frontend Routing', function () {
         after(testUtils.teardown);
 
         it('should redirect without slash', function (done) {
-            request.get('/author/ghost-owner/page/2')
-                .expect('Location', '/author/ghost-owner/page/2/')
+            request.get('/artist/ghost-owner/page/2')
+                .expect('Location', '/artist/ghost-owner/page/2/')
                 .expect('Cache-Control', testUtils.cacheRules.year)
                 .expect(301)
                 .end(doEnd(done));
         });
 
         it('should respond with html', function (done) {
-            request.get('/author/ghost-owner/page/2/')
+            request.get('/artist/ghost-owner/page/2/')
                 .expect('Content-Type', /html/)
                 .expect('Cache-Control', testUtils.cacheRules['public'])
                 .expect(200)
@@ -519,8 +519,8 @@ describe('Frontend Routing', function () {
         });
 
         it('should redirect page 1', function (done) {
-            request.get('/author/ghost-owner/page/1/')
-                .expect('Location', '/author/ghost-owner/')
+            request.get('/artist/ghost-owner/page/1/')
+                .expect('Location', '/artist/ghost-owner/')
                 .expect('Cache-Control', testUtils.cacheRules['public'])
                 // TODO: This should probably be a 301?
                 .expect(302)
@@ -528,16 +528,16 @@ describe('Frontend Routing', function () {
         });
 
         it('should redirect to last page if page too high', function (done) {
-            request.get('/author/ghost-owner/page/4/')
-                .expect('Location', '/author/ghost-owner/page/3/')
+            request.get('/artist/ghost-owner/page/4/')
+                .expect('Location', '/artist/ghost-owner/page/3/')
                 .expect('Cache-Control', testUtils.cacheRules['public'])
                 .expect(302)
                 .end(doEnd(done));
         });
 
         it('should redirect to first page if page too low', function (done) {
-            request.get('/author/ghost-owner/page/0/')
-                .expect('Location', '/author/ghost-owner/')
+            request.get('/artist/ghost-owner/page/0/')
+                .expect('Location', '/artist/ghost-owner/')
                 .expect('Cache-Control', testUtils.cacheRules['public'])
                 .expect(302)
                 .end(doEnd(done));
@@ -545,15 +545,15 @@ describe('Frontend Routing', function () {
 
         describe('Author based RSS pages', function () {
             it('should redirect without slash', function (done) {
-                request.get('/author/ghost-owner/rss')
-                    .expect('Location', '/author/ghost-owner/rss/')
+                request.get('/artist/ghost-owner/rss')
+                    .expect('Location', '/artist/ghost-owner/rss/')
                     .expect('Cache-Control', testUtils.cacheRules.year)
                     .expect(301)
                     .end(doEnd(done));
             });
 
             it('should respond with xml', function (done) {
-                request.get('/author/ghost-owner/rss/')
+                request.get('/artist/ghost-owner/rss/')
                     .expect('Content-Type', /xml/)
                     .expect('Cache-Control', testUtils.cacheRules['public'])
                     .expect(200)
@@ -561,8 +561,8 @@ describe('Frontend Routing', function () {
             });
 
             it('should redirect page 1', function (done) {
-                request.get('/author/ghost-owner/rss/1/')
-                    .expect('Location', '/author/ghost-owner/rss/')
+                request.get('/artist/ghost-owner/rss/1/')
+                    .expect('Location', '/artist/ghost-owner/rss/')
                     .expect('Cache-Control', testUtils.cacheRules['public'])
                     // TODO: This should probably be a 301?
                     .expect(302)
@@ -570,16 +570,16 @@ describe('Frontend Routing', function () {
             });
 
             it('should redirect to last page if page too high', function (done) {
-                request.get('/author/ghost-owner/rss/2/')
-                    .expect('Location', '/author/ghost-owner/rss/1/')
+                request.get('/artist/ghost-owner/rss/2/')
+                    .expect('Location', '/artist/ghost-owner/rss/1/')
                     .expect('Cache-Control', testUtils.cacheRules['public'])
                     .expect(302)
                     .end(doEnd(done));
             });
 
             it('should redirect to first page if page too low', function (done) {
-                request.get('/author/ghost-owner/rss/0/')
-                    .expect('Location', '/author/ghost-owner/rss/')
+                request.get('/artist/ghost-owner/rss/0/')
+                    .expect('Location', '/artist/ghost-owner/rss/')
                     .expect('Cache-Control', testUtils.cacheRules['public'])
                     .expect(302)
                     .end(doEnd(done));

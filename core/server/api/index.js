@@ -18,6 +18,7 @@ var _              = require('lodash'),
     tags           = require('./tags'),
     themes         = require('./themes'),
     users          = require('./users'),
+    artists        = require('./artists'),
     slugs          = require('./slugs'),
     authentication = require('./authentication'),
     uploads        = require('./upload'),
@@ -81,7 +82,7 @@ cacheInvalidationHeader = function (req, result) {
 
             // Don't set x-cache-invalidate header for drafts
             if (hasStatusChanged || wasDeleted || wasPublishedUpdated) {
-                cacheInvalidate = '/, /page/*, /rss/, /rss/*, /tag/*, /author/*, /sitemap-*.xml';
+                cacheInvalidate = '/, /page/*, /rss/, /rss/*, /tag/*, /artist/*, /sitemap-*.xml';
                 if (id && post.slug && post.url) {
                     cacheInvalidate +=  ', ' + post.url;
                 }
@@ -284,6 +285,7 @@ module.exports = {
     settings: settings,
     tags: tags,
     themes: themes,
+    artists: artists,
     users: users,
     slugs: slugs,
     authentication: authentication,

@@ -23,7 +23,7 @@ page_url = function (context, block) {
     }
 
     if (this.authorSlug !== undefined) {
-        url += '/author/' + this.authorSlug;
+        url += '/artist/' + this.authorSlug;
     }
 
     if (context > 1) {

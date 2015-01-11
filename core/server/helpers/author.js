@@ -31,7 +31,7 @@ author = function (context, options) {
     if (this.author && this.author.name) {
         if (autolink) {
             output = utils.linkTemplate({
-                url: config.urlFor('author', {author: this.author}),
+                url: config.urlFor('artist', {author: this.author}),
                 text: _.escape(this.author.name)
             });
         } else {
